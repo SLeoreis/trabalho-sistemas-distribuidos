@@ -5,6 +5,7 @@ from django.db.models.fields import IntegerField
 #precisa criar as relações
 #revisar se está tudo certo tanto nos tamanhos quanto no tipo de var
 #tem um campo quec é um if (como faz ?)
+
 estrutura_CHOICE = (
     ('1','Coleção'),
     ('2','Misturado'),
@@ -141,7 +142,7 @@ class Geral(models.Model):
     nivel_de_agregacao = models.CharField(
         'Nivel_de_Agregação',max_length=2, choices=nivel_de_agregacao_CHOICE )
 
-    verbose_name = 'Geral'
+    verbose_name = 'geral'
     
     def __str__(self):
         return self.titulo
