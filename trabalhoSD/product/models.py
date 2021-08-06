@@ -2,7 +2,6 @@ from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.db.models.fields import IntegerField
 #precisa definir quais campos podem ficar em branco e quais são obrigatorios t
-#precisa criar as relações
 #revisar se está tudo certo tanto nos tamanhos quanto no tipo de var
 #tem um campo quec é um if (como faz ?)
 
@@ -125,6 +124,25 @@ finalidade_CHOICE = (
     ('7','Nível de habilidade'), 
     ('8','Nível de segurança'), 
 )
+
+class LivroArtigo(models.Model):
+    geral = models.OneToOneField('Geral', on_delete=models.CASCADE)
+    ciclo_de_vida = models.OneToOneField('ciclo_de_vida', on_delete=models.CASCADE)
+    meta_metadados = models.OneToOneField('meta_metadados', on_delete=models.CASCADE)
+    identificador = models.OneToOneField('identificador', on_delete=models.CASCADE)
+    contribuinte = models.OneToOneField('contribuinte', on_delete=models.CASCADE)
+    metadados_tecnicos = models.OneToOneField('metadados_tecnicos', on_delete=models.CASCADE)
+    requisitos = models.OneToOneField('requisitos', on_delete=models.CASCADE)
+    aspectos_Educacionais = models.OneToOneField('aspectos_Educacionais', on_delete=models.CASCADE)
+    direitos = models.OneToOneField('direitos', on_delete=models.CASCADE)
+    relacoes = models.OneToOneField('relacoes', on_delete=models.CASCADE)
+    recurso = models.OneToOneField('recurso', on_delete=models.CASCADE)
+    anotacao = models.OneToOneField('anotacao', on_delete=models.CASCADE)
+    Classificacao = models.OneToOneField('Classificacao', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.geral.titulo
+
 class Geral(models.Model):
 
     titulo = models.CharField(
@@ -195,20 +213,12 @@ class metadados_tecnicos(models.Model):
     duracao = models.DateTimeField(
         'Duracao')
 
-class contribuinte(models.Model):
-    papel = models.CharField(
-        'Papel', max_length=15, choices=papel_CHOICE)
-    entidade = models.CharField(
-        'Entidade', max_length=20)
-    data = models.DateField(
-        'Data', blank=True, null=True) 
-
 
 class requisitos(models.Model):
     tipo = models.CharField(
         'tipo', max_length=15, choices=tipo_CHOICE)
     nome = models.CharField(
-        'Nome', max_length=20,  choices=nome_OP_CHOICE)#esse aqui qual lista de opções vai aparecer depende do que marcou na anterior (SO ou BW) 
+        'Nome', max_length=20, choices=nome_OP_CHOICE)#esse aqui qual lista de opções vai aparecer depende do que marcou na anterior (SO ou BW) 
     versao_min = models.CharField(
         'Versao_min', max_length=20) 
     versao_max = models.CharField(
