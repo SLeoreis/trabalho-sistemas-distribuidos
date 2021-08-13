@@ -43,10 +43,8 @@ INSTALLED_APPS = [
     'djoser',
     'product'
 ]
-REST_FRAMEWORK = {  
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
+REST_FRAMEWORK = {'DEFAULT_AUTHENTICATION_CLASSES': [],
+    'DEFAULT_PERMISSION_CLASSES': [],
 }
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8080",

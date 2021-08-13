@@ -1,0 +1,10 @@
+Utilizando apenas essas linhas de código, olha o caminhão de endpoints que o DRF gerou automaticamente para nossa API:
+
+URL	Método HTTP	Ação
+/api/v1	GET	Raíz da API gerada automaticamente
+/api/v1/fundos	GET	Listagem de todos os elementos
+/api/v1/fundos	POST	Criação de novo elemento
+/api/v1/fundos/{lookup}	GET	Recuperar elemento pelo ID
+/api/v1/fundos/{lookup}	PUT	Atualização de elemento por ID
+/api/v1/fundos/{lookup}	PATCH	Atualização parcial por ID (partial update)
+/api/v1/fundos/{lookup}	DELETE	Deleção de elemento por ID

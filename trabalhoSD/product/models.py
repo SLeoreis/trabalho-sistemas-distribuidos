@@ -125,106 +125,79 @@ finalidade_CHOICE = (
     ('8','Nível de segurança'), 
 )
 
-class LivroArtigo(models.Model):
-    geral = models.OneToOneField('Geral', on_delete=models.CASCADE)
-    ciclo_de_vida = models.OneToOneField('ciclo_de_vida', on_delete=models.CASCADE)
-    meta_metadados = models.OneToOneField('meta_metadados', on_delete=models.CASCADE)
-    identificador = models.OneToOneField('identificador', on_delete=models.CASCADE)
-    contribuinte = models.OneToOneField('contribuinte', on_delete=models.CASCADE)
-    metadados_tecnicos = models.OneToOneField('metadados_tecnicos', on_delete=models.CASCADE)
-    requisitos = models.OneToOneField('requisitos', on_delete=models.CASCADE)
-    aspectos_Educacionais = models.OneToOneField('aspectos_Educacionais', on_delete=models.CASCADE)
-    direitos = models.OneToOneField('direitos', on_delete=models.CASCADE)
-    relacoes = models.OneToOneField('relacoes', on_delete=models.CASCADE)
-    recurso = models.OneToOneField('recurso', on_delete=models.CASCADE)
-    anotacao = models.OneToOneField('anotacao', on_delete=models.CASCADE)
-    Classificacao = models.OneToOneField('Classificacao', on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.geral.titulo
-
-class Geral(models.Model):
-
+class Cadastro(models.Model):
+#Geral
     titulo = models.CharField(
         'Titulo', max_length=120)
     linguagem = models.CharField(
         'Linguagem', max_length=15)
-    descricao = models.CharField(
-        'Descrição', max_length=150)
+    descricao_geral = models.TextField(
+        'Descrição', default=None)
     palavras_chave = models.CharField(
-        'Palavras Chave', max_length=50)
+        'Palavras Chave', max_length=50, default=None)
     cobertura = models.CharField(
-        'Cobertura', max_length=15)
+        'Cobertura', max_length=30, blank=True, default=None)
     estrutura = models.CharField(
-        'Estrutura', max_length=20, choices=estrutura_CHOICE)
+        'Estrutura', max_length=20, choices=estrutura_CHOICE, blank=True)
     nivel_de_agregacao = models.CharField(
         'Nivel_de_Agregação',max_length=2, choices=nivel_de_agregacao_CHOICE )
 
-    verbose_name = 'geral'
-    
-    def __str__(self):
-        return self.titulo
-    #essa função em cima é pra nomear o objeto que a classe vai gerar, tem q escolher um pra cada uma das outras
-
-    
-
-class ciclo_de_vida(models.Model):
+#Ciclo de Vida    
     versao = models.IntegerField(
         'Versao')
     status = models.CharField(
         'Status', max_length=15, choices=status_CHOICE)
-    entidade = models.CharField(
-        'Entidade', max_length=20)
+    ciclo_de_vida_entidade = models.CharField(
+        'Entidade CV', max_length=20, default=None)
     datas = models.DateField(
         'Data', blank=True, null=True)    
 
-
-class meta_metadados(models.Model):
+#Meta Metadados
     esquema_de_metadados = models.CharField(
         'Esquema_de_Metadados', max_length=20)
 
-class identificador(models.Model):
+#Identificadores
     catalogo = models.CharField(
         'Catalogo', max_length=150)
     entrada = models.DateField(
         'Entrada', blank=True, null=True)
 
-class contribuinte(models.Model):
+#Contribuinte
+    contribuinte_entidade = models.CharField(
+        'Contribuinte Entidade', max_length=20, default=None)
+    data_contribuinte = models.DateField(
+        'Data Contribuinte', null=True)
     papel = models.CharField(
-        'Papel', max_length=15, choices=papel_CHOICE)
-    entidade = models.CharField(
-        'Entidade', max_length=20)
-    data = models.DateField(
-        'Data', blank=True, null=True) 
-
-class metadados_tecnicos(models.Model):
+        'Papel', max_length=15, choices=papel_CHOICE, blank = True)
+    
+#Metadados Tecnicos
     formato = models.CharField(
         'Formato', max_length=15)
     tamanho = models.CharField(
         'Tamanho', max_length=20)
-    requisitos = models.CharField(
-        'Requisitos', max_length=50)
     localizacao = models.CharField(
         'Localizacao', max_length=50)
+    requisitos = models.CharField(
+        'Requisitos', max_length=50)
     observacoes_de_instalacoes = models.TextField(
-        'Observacoes_de_Instalacoes')
+        'Observacoes_de_Instalacoes', blank=True)
     outros_Requisitos_de_Sistema = models.TextField(
-        'Outros_Requisitos_de_Sistema')
-    duracao = models.DateTimeField(
+        'Outros_Requisitos_de_Sistema', blank=True)
+    duracao = models.TimeField(
         'Duracao')
 
-
-class requisitos(models.Model):
+#Requisitos
     tipo = models.CharField(
-        'tipo', max_length=15, choices=tipo_CHOICE)
+        'tipo', max_length=15)
     nome = models.CharField(
-        'Nome', max_length=20, choices=nome_OP_CHOICE)#esse aqui qual lista de opções vai aparecer depende do que marcou na anterior (SO ou BW) 
+        'Nome', max_length=20)
     versao_min = models.CharField(
         'Versao_min', max_length=20) 
     versao_max = models.CharField(
         'Versao_max', max_length=20) 
 
-class aspectos_Educacionais(models.Model):
+#Aspectos Educacionais
+
     tipo_de_Interatividade = models.CharField(
         'Tipo_de_Interatividade', max_length=15, choices=tipo_de_Interatividade_CHOICE)
     tipo_de_recurso_de_aprendizagem = models.CharField(
@@ -241,42 +214,44 @@ class aspectos_Educacionais(models.Model):
         'Idade_Recomendada', max_length=20)
     grau_de_dificuldade = models.CharField(
         'Grau_de_dificuldade', max_length=20, choices=nivel_CHOICE)
-    tempo_de_aprendizado = models.DateTimeField(
+    tempo_de_aprendizado = models.TimeField(
         'Tempo_de_aprendizado')
-    descricao = models.CharField(
-        'Descricao', max_length=100)
-    linguagem = models.CharField(
-        'Linguagem', max_length=20)
+    descricao_aspectos_educacionais = models.CharField(
+        'Descricao', max_length=100, default=None)
+    
 
-class direitos(models.Model):
+#Direitos
     custo = models.FloatField(
         'Custo')
     direitos_autorais = models.CharField(
         'Direitos_autorais', max_length=20)
-    descricao = models.CharField(
-        'Descricao', max_length=100)
+    descricao_direitos = models.CharField(
+        'Descricao', max_length=100, default=None)
 
-class relacoes(models.Model):
+#Requisitos
     genero = models.CharField(
         'Gênero',max_length=20)
     recurso = models.CharField(
         'Recurso', max_length=20)
-    
-class recurso(models.Model):
-    descricao = models.CharField(
-        'Descrição',max_length=20)
 
-class anotacao(models.Model):
+#Recurso    
+    descricao_recursos = models.CharField(
+        'Descrição Recursos',max_length=20, default=None)
+
+#Anotação
     pessoa = models.CharField(
         'Pessoa',max_length=20)
-    data = models.DateTimeField(
-        'Data')
-    descricao = models.CharField(
-        'Descricao', max_length=100)
+    data_anotacao = models.DateField(
+        'Data', default=None)
+    descricao_anotacao = models.CharField(
+        'Descricao Anotação', max_length=100, default=None)
 
-class Classificacao(models.Model):
+#Classificação
     finalidade = models.CharField(
         'finalidade', max_length=20, choices=finalidade_CHOICE)
-    palavras_chave = models.CharField(
-        'Palavras Chave', max_length=50)
+    palavras_chave_clasifi = models.CharField(
+        'Palavras Chave', max_length=50, default=None)
+
+def __str__(self):
+        return self.titulo
 
