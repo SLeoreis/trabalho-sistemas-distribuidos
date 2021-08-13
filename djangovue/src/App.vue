@@ -1,25 +1,25 @@
 <template>
-  <div id="app">
-    <navbar></navbar> 
-    <div class="container">
-      
-      <Container />
-      
-      <router-view></router-view>
+<div id="app">
+  <navbar></navbar> 
+  <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <router-link to="/index"/>
+          <router-view/>
     </div>
-    
   </div>
-</template>
-
+</div>
+</div>
+</template>>
 <script>
-import Container from './components/Container.vue';
+
 import Navbar from './components/Navbar';
 
 export default {
   name: 'App',
   components: {
     Navbar,
-    Container,
+
    }
 }
 

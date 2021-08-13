@@ -1,0 +1,27 @@
+Passos para executar o trabalho.
+
+Primeiro é preciso criar um ambiente virtual, para isso use os comandos:
+
+sudo apt-get install python3-pip
+sudo pip3 install virtualenv 
+
+virtualenv env
+
+Depois é necessário ativar o ambiente virtual
+
+source env/bin/activate
+
+Agora que o ambiente está pronto é preciso instalar o requerimentos do projeto, para isso use o comando:
+
+pip install -r requirements.txt
+Criar banco de dados chamado “trabalho” no postgres e alterar as configurações no arquivo settings.py no campo DATABASES e alterar o usuário e senha de conexão 
+
+Rodar os comandos 
+
+python3 manage.py r manage.py makemigrations 
+python manage.py migrate
+
+Rode o sistema com o comando:
+
+python3 manage.py runserver
+
