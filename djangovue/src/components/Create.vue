@@ -219,7 +219,7 @@
              <b-form-input id="palavras_chave_clasifi" v-model="cadastro.palavras_chave_clasifi"></b-form-input>  
          </b-form-group>
          
-        <b-button variant="info" @click="sendForm" :disabled="loading">Salvar</b-button>
+        <b-button variant="info" @click="sendForm">Salvar</b-button>
          
          </b-form>
          </b-container>
@@ -233,7 +233,6 @@ import axios from 'axios';
 export default {
     data() {
         return {
-            loading:false,
             cadastro: {
             //Geral
                 titulo:'',
@@ -321,11 +320,10 @@ export default {
             this.loading = true;
                 console.log(this.currency)
                 axios
-                    .post('http://127.0.0.1:8000/api/cadastro',
+                    .post('http://127.0.0.1:8000/api/cadastro/',
                         this.cadastro
                     )
                     .then(() => {
-                        this.loading = false;
                         this.$router.push('/');
                     })
                     .catch(()=>{
