@@ -37,7 +37,7 @@ export default {
     methods: {
         deleteCadastro: function(cadastro) {
             if (confirm('Delete ' + cadastro.id)) {
-                axios.delete(`http://127.0.0.1:8000/api/cadastro/${cadastro.id}`)
+                axios.delete(`http://127.0.0.1:8000/api/cadastro/${cadastro.id}/`)
                     .then( response => {
                         this.all();
                         return response;
